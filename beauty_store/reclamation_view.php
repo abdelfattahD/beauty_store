@@ -1,3 +1,4 @@
+
 <?php include "db.php"; ?>
 
 <?php session_start() ?>
@@ -9,6 +10,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+<!--===============================================================================================-->
+
+
 <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
@@ -25,14 +29,14 @@
 	<!-- Header -->
 	<?php include 'section/Header_Menu.php' ?>
 
-<!-- ========================= SECTION PAGETOP ========================= -->
-<section class="section-pagetop  p-tb-30">
+    <!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop p-tb-30">
 <div class="container">
 	<h2 class="title-page">My account</h2>
 </div> <!-- container //  -->
-
 </section>
 <!-- ========================= SECTION PAGETOP END// ========================= -->
+	
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
@@ -40,108 +44,126 @@
 
 <div class="row">
 	<aside class="col-md-3">
-    <?php include "section/profil_user.php"?>
+    <?php include "section/profil_user.php"?> 
 	<?php include "section/profil_nav.php"?> 
 
 	</aside> <!-- col.// -->
 	<main class="col-md-9">
-        <div class="card">
-            <div class="card-body">
-                <form class="row" action="" method="post" >
-                    <div class="col-md-9">
-                    <br><br>
-                        <div class="form-row">
-                            <div class="col form-group">
-                                <label>Your Old Password:</label>
-                                <input type="password" class="form-control" name="old_pass" >
-                            </div> <!-- form-group end.// -->
-                            <div class="col form-group">
-                                <label>Your New Password:</label>
-                                <input type="password" class="form-control" name="new_pass" >
-                            </div> <!-- form-group end.// -->
-                        </div> <!-- form-row.// -->
-                        
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label>Confirm Your New Password:</label>
-                            <input type="password" class="form-control" name="new_pass_again" >
-                            </div> <!-- form-group end.// -->
-                        </div> <!-- form-row.// -->
+            
+		<article class="card mb-4">
+        <?php 
+		$user_session = $_SESSION['fname'];
+		$client_id = $_SESSION['id'];
 
-                        <button name="change_pass" class="btn stext-101 cl0 size-115 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Save</button>
+        
+		$get_user = "SELECT * FROM users WHERE id='$client_id'";
+        
+        $run_user = mysqli_query($connection,$get_user);
+        
+        $row_user = mysqli_fetch_array($run_user);
+        
+        $user_id = $row_user['id'];
+        $user_name = $row_user['Fname'];
+        $user_email = $row_user['Email'];
+        $user_city = $row_user['ville'];
+        $user_adress = $row_user['address'];
+        $user_contact = $row_user['numero'];
 
-                        <br><br><br>
+  
 
-                    </div> <!-- col.// -->
-                    
-                </form>
 
-                <?php 
+        
+        $get_orders = "SELECT * FROM customer_orders WHERE customer_id='$client_id'";
+        
+        $run_orders = mysqli_query($connection,$get_orders);
 
-                if(isset($_POST['change_pass'])){
-                    
-					$c_username = $_SESSION['fname'];
-					$client_id = $_SESSION['id'];
-
-                    
-                    $c_old_pass = $_POST['old_pass'];
-                    
-                    $c_new_pass = $_POST['new_pass'];
-                    
-                    $c_new_pass_again = $_POST['new_pass_again'];
-                   
-                   
-                    
-                    $sel_c_old_pass = "SELECT * FROM users WHERE id='$client_id'";
-                    
-                    $run_c_old_pass = mysqli_query($connection,$sel_c_old_pass);
-                    
-					$check_c_old_pass = mysqli_fetch_array($run_c_old_pass);
+        $row_orders = mysqli_fetch_array($run_orders);
+        $invoice_no = $row_orders['invoice_no'];
+        $order_date = substr($row_orders['order_date'],0,11);
+        
+        ?>
+		<header class="card-header">
+			
+			<strong class="d-inline-block mr-3">Order ID: <?php echo $invoice_no; ?>  </strong>
+			<span>Order Date: <?php echo $order_date; ?> </span>
+		</header>
+		<div class="card-body">
+			<div class="row"> 
+				<div class="col-md-8">
+					<h6 class="text-muted">Delivery to</h6>
+					<p> <?php echo $user_name; ?><br>  
+					Phone: <?php echo $user_contact; ?>, Email: <?php echo $user_email; ?> <br>
+			    	Location: <?php echo $user_adress; ?> <br> 
+			    	<?php echo $user_city; ?>
+			 		</p>
+				</div>
+				<div class="col-md-4">
+					<h6 class="text-muted">Payment</h6>
 					
-					$hash = $check_c_old_pass['Password'];
-					$hash = substr( $hash, 0, 100 );
-
-					if (password_verify($c_old_pass, $hash)) {
-
-						if($c_new_pass!=$c_new_pass_again){
-                        
-							echo "<script>alert('Sorry, your new password did not match')</script>";
-							
-							exit();
-							
-						}
-						$c_new_pass = password_hash($c_new_pass, PASSWORD_DEFAULT);
-                    $update_c_pass = "UPDATE users SET Password='$c_new_pass' WHERE Fname='$c_username'";
-                    
-                    $run_c_pass = mysqli_query($connection,$update_c_pass);
-                    
-                    if($run_c_pass){
-                        
-                        echo "<script>alert('Your password has been updated')</script>";
-                        
-                        echo "<script>window.open('account_user.php','_self')</script>";
-                        
-                    }
+					<p>Subtotal: $356 <br>
+					 Shipping fee:  $56 <br> 
+					 <span class="b">Total:  $456 </span>
+					</p>
+				</div>
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+		<div class="table-responsive">
+		<table class="table table-hover">
+			<tbody>
+            <?php 
+                  $get_reclamation = "SELECT * FROM reclamation ";
+                  $run_reclamation = mysqli_query($connection,$get_reclamation);
 
 
-					}                
-                   else{
-                        
-                        echo "<script>alert('Sorry, your current password did not valid. Please try again')</script>";
-                        
-                        exit();
-                        
-                    }
-                    
-                   
-                    
-                    
-                }
+                 
+                  while($row_reclamation = mysqli_fetch_array($run_reclamation)){
 
-                ?>
-            </div> <!-- card-body.// -->
-        </div> <!-- card .// -->
+                  $id_reclamation = $row_reclamation['order_id'];
 
+
+            $get_orders = "SELECT * FROM customer_orders WHERE customer_id='$client_id' AND order_id =  $id_reclamation";
+        
+			$run_orders = mysqli_query($connection,$get_orders);
+            while($row_orders = mysqli_fetch_array($run_orders)){
+                
+                $order_id = $row_orders['order_id'];
+                $due_amount = $row_orders['due_amount'];
+                $image_pro = $row_orders['image_pro'];
+                $title_pro = $row_orders['title_pro'];
+                $qty = $row_orders['qty'];
+                $size = $row_orders['size'];
+                $color = $row_orders['color'];
+              
+            
+            ?>
+           
+
+            <tr>
+				<td width="65">
+					<img src="img/product/<?php echo $image_pro; ?>" class="img-xs border" width="110%" height="120%">
+				</td>
+				<td> 
+					<p class="title mb-0"><?php echo $title_pro; ?> </p>
+					
+				</td>
+
+                <td><var class="price text-muted"><?php echo $due_amount; ?> DH</var></td>
+
+				<td> <?php echo $size; ?> <br> <?php echo $color; ?> </td>
+                <td> 
+                    <p class="title mb-0"> <?php echo $qty.'Pièce'; ?> </p>
+				</td>
+                
+				
+			</tr>
+			<?php } } ?>
+			
+		</tbody></table>
+		</div> <!-- table-responsive .end// -->
+        
+		</article> <!-- card order-item .// -->
+
+		
         <br> <br> <br> <br> <br>
 
 	</main> <!-- col.// -->
@@ -152,8 +174,12 @@
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 
-       	<!-- Footer -->
-		   <?php include 'section/footer.php' ?>
+
+
+
+
+     	<!-- Footer -->
+		 <?php include 'section/footer.php' ?>
 
 	
 

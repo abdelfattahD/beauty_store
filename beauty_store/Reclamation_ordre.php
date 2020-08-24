@@ -55,39 +55,27 @@
 	<?php 
                
                    
-                    if(isset($_POST['confirm_payment'])){
+                    if(isset($_POST['confirm_reclamation'])){
                         
                         $update_id = $_GET['update_id'];
                         
-                        $invoice_no = $_POST['invoice_no'];
                         
-                        $amount = $_POST['amount_sent'];
                         
-                        $payment_mode = $_POST['payment_mode'];
+                        $Reclamation = $_POST['Reclamation'];
                         
-                        $ref_no = $_POST['ref_no'];
                         
-                        $code = $_POST['code'];
-                        
-                        $payment_date = $_POST['date'];
                         
                         $complete = "Complete";
                         
-                        $insert_payment = "INSERT INTO payments (invoice_no,amount,payment_mode,ref_no,code,payment_date) VALUES ('$invoice_no','$amount','$payment_mode','$ref_no','$code','$payment_date')";
+                        $insert_reclamation = "INSERT INTO reclamation (order_id,date_recl,reclamation) VALUES ('$update_id',NOW(),'$Reclamation')";
                         
-                        $run_payment = mysqli_query($connection,$insert_payment);
+                        $run_reclamation = mysqli_query($connection,$insert_reclamation);
                         
-                        $update_customer_order = "UPDATE customer_orders SET order_status='$complete' WHERE order_id='$update_id'";
                         
-                        $run_customer_order = mysqli_query($connection,$update_customer_order);
                         
-                        $update_pending_order = "UPDATE pending_orders SET order_status='$complete' WHERE order_id='$update_id'";
-                        
-                        $run_pending_order = mysqli_query($connection,$update_pending_order);
-                        
-                        if($run_pending_order){
+                        if($run_reclamation){
                             
-                            echo "<script>alert('Thank You for purchasing, your orders will be completed within 24 hours work')</script>";
+                            echo "<script>alert('Thank You for reclamation, your reclamation will be completed within 24 hours work')</script>";
                             
                             echo "<script>window.open('order_user.php','_self')</script>";
                             
@@ -110,12 +98,19 @@
 			$order_id = $row_order['order_id'];
 			$due_amount = $row_order['due_amount'];
 			$invoice_no = $row_order['invoice_no'];
+			$image_pro = $row_order['image_pro'];
           ?>
         <div class="card">
             <div class="card-body">
-                <form class="row" action="confirm_user.php?update_id=<?php echo $order_id;  ?>" method="post" enctype="multipart/form-data">
+                <form class="row" action="Reclamation_ordre.php?update_id=<?php echo $order_id;  ?>" method="post" enctype="multipart/form-data">
                     <div class="col-md-9">
-                        <h4 class="card-title">Please confirm your payment</h4>
+                        <h4 class="card-title">Reclamation ordre</h4>
+						<div class="col form-group">
+                                <label>product </label>
+								
+					      <img src="img/product/<?php echo $image_pro; ?>" class="img-xs border" width="50" height="50">
+				                               
+				 </div> <!-- form-group end.// -->
                         <br> 
                         <div class="form-row">
                             <div class="col form-group">
@@ -127,36 +122,23 @@
                                 <input type="text" class="form-control" value="<?php echo $due_amount; ?>" name="amount_sent">
                             </div> <!-- form-group end.// -->
                         </div> <!-- form-row.// -->
-                        
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label>Select Payement Mode </label>
-                            <select id="inputState" class="form-control" name="payment_mode">
-                                <option> Choose...</option>
-                                <option>Back Code</option>
-                                <option>paypall / Payo</option>
-                                <option selected="">wafa cash</option>
-                                <option>Western Union</option>
-                            </select>
-                            </div> <!-- form-group end.// -->
-                            <div class="form-group col-md-6">
-                            <label>Transaction/ Reference ID</label>
-                            <input type="text" class="form-control" name="ref_no">
-                            </div> <!-- form-group end.// -->
-                        </div> <!-- form-row.// -->
+						
+				<div class="form-row">
+                            
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                            <label>Omni Paisa/ East Paisa</label>
-                            <input type="text" class="form-control" value="" name="code">
+
+						<div class="col-lg-7">
+                            <div  class="form-group" >
+                                
+								<input  class="form-control different-control w-100" name="Reclamation" id="subject" type="text" placeholder="Enter Reclamation">
                             </div> <!-- form-group end.// -->
-                            <div class="form-group col-md-6">
-                            <label>Payment Date</label>
-                            <input type="date" class="form-control" value="" name="date">
-                            </div> <!-- form-group end.// -->
+                            
                         </div> <!-- form-row.// -->
+                       
+
                         <br>
-                        <button class="btn stext-101 cl0 size-115 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" name="confirm_payment">Confirm Payment</button>	
+                        <br>
+                        <button class="btn stext-101 cl0 size-115 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" name="confirm_reclamation">Confirm Reclamation</button>	
 
                         <br><br>
 

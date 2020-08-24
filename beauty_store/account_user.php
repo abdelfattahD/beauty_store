@@ -45,14 +45,8 @@
 
 <div class="row">
 	<aside class="col-md-3">
-		<nav class="list-group">
-			<a class="list-group-item stext-106 trans-04 cl5 bg2 " href="account_user.php"> Account overview  </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="order_user.php"> My Orders </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="confirm_user.php"> Confirm payment </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="edit_account.php"> Settings </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="change_password.php"> Change password </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="logout.php"> Log out </a>
-		</nav>
+	<?php include "section/profil_nav.php"?> 
+
 	</aside> <!-- col.// -->
 	<main class="col-md-9">
 

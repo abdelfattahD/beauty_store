@@ -10,33 +10,6 @@
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
 
 
 <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
@@ -71,14 +44,8 @@
 <div class="row">
 	<aside class="col-md-3">
     <?php include "section/profil_user.php"?>
-		<nav class="list-group">
-            <a class="list-group-item text-secondary stext-106 trans-04" href="account_user.php"> Account overview  </a>
-            <a class="list-group-item text-secondary stext-106 trans-04  " href="order_user.php"> My Orders </a>
-            <a class="list-group-item text-secondary stext-106 trans-04" href="confirm_user.php"> Confirm payment </a>
-            <a class="list-group-item  stext-106 trans-04 cl5 bg2" href="edit_account.php"> Settings </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="change_password.php"> Change password </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="logout.php"> Log out </a>
-		</nav>
+	<?php include "section/profil_nav.php"?> 
+
 	</aside> <!-- col.// -->
 	<main class="col-md-9">
 

@@ -45,14 +45,8 @@
 <div class="row">
 	<aside class="col-md-3">
     <?php include "section/profil_user.php"?> 
-    <nav class="list-group">
-			<a class="list-group-item text-secondary stext-106 trans-04" href="account_user.php"> Account overview  </a>
-			<a class="list-group-item  stext-106 trans-04 cl5 bg2 " href="order_user.php"> My Orders </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="confirm_user.php"> Confirm payment </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="edit_account.php"> Settings </a>
-            <a class="list-group-item text-secondary stext-106 trans-04" href="change_password.php"> Change password </a>
-			<a class="list-group-item text-secondary stext-106 trans-04" href="logout.php"> Log out </a>
-		</nav> 
+	<?php include "section/profil_nav.php"?> 
+
 	</aside> <!-- col.// -->
 	<main class="col-md-9">
             
@@ -113,7 +107,7 @@
 		<table class="table table-hover">
 			<tbody>
             <?php 
-            $get_orders = "SELECT * FROM customer_orders WHERE customer_id='$client_id'";
+            $get_orders = "SELECT * FROM customer_orders WHERE customer_id='$client_id' AND order_status = 'pending' ";
         
 			$run_orders = mysqli_query($connection,$get_orders);
             while($row_orders = mysqli_fetch_array($run_orders)){
@@ -157,7 +151,7 @@
 				</td>
                 
 				<td width="250"> 
-                    <a href="confirm_user.php?order_id=<?php echo $order_id; ?>" class="btn stext-101 cl2 bg8 bor13 hov-btn3 p-lr-15  pointer m-tb-10">Track order</a> 
+                    <a href="confirm_user.php?order_id=<?php echo $order_id; ?>" class="btn stext-101 cl2 bg8 bor13 hov-btn3 p-lr-15  pointer m-tb-10">confirmer paiement</a> 
 					
 				</td>
 			</tr>
